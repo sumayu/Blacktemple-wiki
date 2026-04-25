@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--color-zinc-950);
+  --color-foreground: var(--color-zinc-300);
+  
+  --color-card: var(--color-zinc-900);
+  --color-card-foreground: var(--color-zinc-300);
+  
+  --color-border: var(--color-zinc-800);
+  
+  --color-primary: var(--color-white);
+  --color-primary-foreground: var(--color-black);
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased;
+    /* Custom selection color for premium feel */
+    ::selection {
+      @apply bg-zinc-700 text-white;
+    }
+  }
+}
