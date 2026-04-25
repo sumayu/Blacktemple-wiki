@@ -520,8 +520,8 @@ const getKeyErrorGuide = (platform: string): Guide => {
       {
         title: { ru: 'Способ 1: Базовые действия', en: 'Method 1: Basic actions' },
         text: { 
-          ru: '• **Перезагрузите устройство.** Это сбросит сетевые ошибки системы.\n• **Включите White List.** Если вы на тарифе BlackRock, включите эту функцию в настройках — возможно, ваш оператор блокирует стандартное подключение.', 
-          en: '• **Restart the device.** This will reset system network errors.\n• **Enable White List.** If you are on the BlackRock plan, enable this function in settings — your ISP might be blocking standard connections.' 
+          ru: '• **Перезагрузите устройство.** Это сбросит сетевые ошибки системы.', 
+          en: '• **Restart the device.** This will reset system network errors.' 
         }
       },
       {
@@ -575,6 +575,14 @@ const getConnectionErrorGuide = (platform: 'windows' | 'mobile' | 'other'): Guid
       }
     });
   }
+
+  steps.push({
+    title: { ru: 'Шаг 2: Использование функции White List', en: 'Step 2: Using the White List function' },
+    text: {
+      ru: 'В нашем приложении есть специальный инструмент для обхода таких ограничений.\n\n1. Зайдите в приложение BlackTemple.\n2. Найдите и включите функцию White List.\n3. Попробуйте переподключиться.\n\n**Важно:** Данная функция — это продвинутая технология обхода, которая доступна только на тарифе BlackRock (от 4,5 руб/сутки). На базовом тарифе BlackEasy эта функция не поддерживается.',
+      en: 'Our app has a special tool to bypass such restrictions.\n\n1. Go to the BlackTemple app.\n2. Find and enable the White List function.\n3. Try to reconnect.\n\n**Important:** This function is an advanced bypass technology available only on the BlackRock plan (from 4.5 rubles/day). This function is not supported on the basic BlackEasy plan.'
+    }
+  });
 
   return {
     slug: 'connection-error',
