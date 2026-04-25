@@ -110,6 +110,49 @@ const getFindKeyGuide = (): Guide => ({
   ]
 });
 
+const getRemoveDeviceGuide = (): Guide => ({
+  slug: 'remove-device',
+  title: { ru: 'Как удалить устройство (кабинет) и что важно знать', en: 'How to remove a device (cabinet) and what is important to know' },
+  description: { 
+    ru: 'Если вы хотите уменьшить дневную оплату или просто хотите навести порядок в своих ключах, вы можете удалить лишние кабинеты.', 
+    en: 'If you want to reduce your daily payment or simply want to organize your keys, you can remove extra cabinets.' 
+  },
+  warning: {
+    ru: '⚠️ **Важное примечание об основном кабинете**\nПри регистрации аккаунта система автоматически создает для вас основной кабинет.\nУдалить основной кабинет невозможно. Он является базовым и неразрывно привязан к вашему профилю. Кнопка удаления для него будет отсутствовать или выдавать ошибку.\n\n**Что делать, если вы не пользуетесь основным ключом?** Если вы создали дополнительные кабинеты и запутались в них, просто удалите все дополнительные, а ключ от основного скопируйте и вставьте в ваше приложение. Это самый надежный способ сохранить стабильную работу подписки.',
+    en: '⚠️ **Important note about the main cabinet**\nWhen registering an account, the system automatically creates a main cabinet for you.\nIt is impossible to remove the main cabinet. It is basic and inextricably linked to your profile. The delete button for it will be missing or will throw an error.\n\n**What to do if you do not use the main key?** If you have created additional cabinets and got confused in them, simply delete all additional ones, and copy the key from the main one and paste it into your application. This is the most reliable way to maintain stable subscription performance.'
+  },
+  steps: [
+    {
+      title: { ru: 'Шаг 1: Авторизация', en: 'Step 1: Authorization' },
+      text: { 
+        ru: 'Зайдите в нашего бота или в личный кабинет на сайте.', 
+        en: 'Log in to our bot or dashboard on the website.' 
+      }
+    },
+    {
+      title: { ru: 'Шаг 2: Устройства', en: 'Step 2: Devices' },
+      text: { 
+        ru: 'Перейдите в раздел "устройства".', 
+        en: 'Go to the "devices" section.' 
+      }
+    },
+    {
+      title: { ru: 'Шаг 3: Выбор кабинета', en: 'Step 3: Choose cabinet' },
+      text: { 
+        ru: 'Выберите из списка тот кабинет (ключ), который вам больше не нужен.', 
+        en: 'Select the cabinet (key) you no longer need from the list.' 
+      }
+    },
+    {
+      title: { ru: 'Шаг 4: Удаление', en: 'Step 4: Deletion' },
+      text: { 
+        ru: 'Нажмите кнопку «Удалить» и подтвердите действие.', 
+        en: 'Click the "Delete" button and confirm the action.' 
+      }
+    }
+  ]
+});
+
 const getAddDeviceGuide = (): Guide => ({
   slug: 'add-device',
   title: { ru: 'Как добавить второе устройство', en: 'How to add a second device' },
@@ -702,6 +745,13 @@ const getMissedPaymentGuide = (): Guide => ({
   },
   steps: [
     {
+      title: { ru: 'Проверьте, какой аккаунт вы пополнили', en: 'Check which account you topped up' },
+      text: {
+        ru: 'Это самая частая причина, по которой пользователи не видят свои деньги. У BlackTemple есть две независимые системы. Представьте, что это два разных кошелька, которые по умолчанию не связаны между собой:\n\n**👛 Кошелек А: В Telegram-боте**\nОткройте бота [@blacktemple_space_bot](https://t.me/blacktemple_space_bot), нажмите кнопку «Баланс» и проверьте, поступили ли средства. Если вы платили через интерфейс бота, деньги будут здесь.\n\n_Если вы пополнили баланс на сайте, а зашли в бота — денег в боте не будет, пока вы не объедините аккаунты._\n\n**🌐 Кошелек Б: На сайте blacktemple.online**\nЗайдите на сайт через браузер и посмотрите на баланс в личном кабинете.\n\nЭто отдельный личный кабинет. Вы могли зарегистрироваться на сайте под одной почтой, а оплату провести в боте — в этом случае система создаст два разных профиля, и баланс на них будет разным. Пожалуйста, проверьте обе площадки на наличие пополнения. Подробнее об этом: [Почему баланс в боте и на сайте отличается?](different-balance)\n\nЕсли мы нашли нужную нам площадку — используем ключ от нее. Инструкция по поиску: [Как найти ваш ключ (KEY)](find-key)',
+        en: 'This is the most common reason users don\'t see their money. BlackTemple has two independent systems. Imagine them as two different wallets that are not linked by default:\n\n**👛 Wallet A: In Telegram bot**\nOpen the bot [@blacktemple_space_bot](https://t.me/blacktemple_space_bot), tap the "Balance" button and check if the funds arrived. If you paid via the bot interface, the money will be here.\n\n_If you topped up on the website but checked in the bot — the money won\'t be in the bot until you link the accounts._\n\n**🌐 Wallet B: On blacktemple.online**\nGo to the website via browser and check your dashboard balance.\n\nThis is a separate dashboard. You could have registered on the site with one email, but paid in the bot — in this case, the system creates two different profiles, and their balances will differ. Please check both platforms. Read more here: [Why does the balance in the bot and on the website differ?](different-balance)\n\nIf you found the right platform — use its key. Guide on finding it: [How to find your key (KEY)](find-key)'
+      }
+    },
+    {
       title: { ru: 'Подождите 1 час', en: 'Wait 1 hour' },
       text: {
         ru: 'Обычно средства зачисляются мгновенно, но из-за особенностей работы банковских систем и подтверждений транзакций задержка может составлять до 60 минут.',
@@ -845,6 +895,7 @@ export const knowledgeBase: Category[] = [
       },
       getFindKeyGuide(),
       getAddDeviceGuide(),
+      getRemoveDeviceGuide(),
       getChangePlanGuide(),
       getMissedPaymentGuide(),
       getBotProblemsGuide(),
@@ -887,6 +938,7 @@ export const knowledgeBase: Category[] = [
       },
       getFindKeyGuide(),
       getAddDeviceGuide(),
+      getRemoveDeviceGuide(),
       getChangePlanGuide(),
       getMissedPaymentGuide(),
       getBotProblemsGuide(),
@@ -929,6 +981,7 @@ export const knowledgeBase: Category[] = [
       },
       getFindKeyGuide(),
       getAddDeviceGuide(),
+      getRemoveDeviceGuide(),
       getChangePlanGuide(),
       getMissedPaymentGuide(),
       getBotProblemsGuide(),
@@ -976,6 +1029,7 @@ export const knowledgeBase: Category[] = [
       },
       getFindKeyGuide(),
       getAddDeviceGuide(),
+      getRemoveDeviceGuide(),
       getChangePlanGuide(),
       getMissedPaymentGuide(),
       getBotProblemsGuide(),
@@ -1048,6 +1102,7 @@ export const knowledgeBase: Category[] = [
         ]
       },
       getAddDeviceGuide(),
+      getRemoveDeviceGuide(),
       getChangePlanGuide(),
       getMissedPaymentGuide(),
       getBotProblemsGuide(),
