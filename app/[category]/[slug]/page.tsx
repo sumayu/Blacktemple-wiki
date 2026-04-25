@@ -62,8 +62,21 @@ export default function GuidePage({ params }: { params: Promise<{ category: stri
 
               <div className="pl-10 space-y-4">
                 {step.text && (
-                  <div className="text-sm text-zinc-500 leading-relaxed whitespace-pre-wrap prose prose-invert prose-zinc max-w-none prose-p:my-0 prose-a:text-white prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-zinc-300">
-                    <Markdown>{step.text[lang]}</Markdown>
+                  <div className="text-sm text-zinc-500 leading-relaxed whitespace-pre-wrap prose prose-invert prose-zinc max-w-none prose-p:my-0">
+                    <Markdown
+                      components={{
+                        a: ({node, ...props}) => (
+                          <a 
+                            {...props} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="font-medium text-white underline decoration-zinc-600 underline-offset-4 hover:decoration-white hover:text-zinc-200 hover:bg-zinc-800/50 transition-all rounded px-0.5 mx-0.5"
+                          />
+                        )
+                      }}
+                    >
+                      {step.text[lang]}
+                    </Markdown>
                   </div>
                 )}
                 
