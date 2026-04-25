@@ -1052,9 +1052,7 @@ export const knowledgeBase: Category[] = [
       getMissedPaymentGuide(),
       getBotProblemsGuide(),
       getDifferentBalanceGuide(),
-      getTorrentBanGuide(),
-      getInternetProblemsGuide(),
-      getKeyErrorGuide('Linux')
+      getTorrentBanGuide()
     ]
   }
 ];
