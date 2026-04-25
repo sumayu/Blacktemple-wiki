@@ -82,8 +82,8 @@ const getFindKeyGuide = (): Guide => ({
     {
       title: { ru: 'Зайдите в личный кабинет', en: 'Log in to your dashboard' },
       text: { 
-        ru: 'Перейдите на сайт blacktemple.online или откройте Telegram-бота @blacktemple_space_bot. Используйте тот сервис, через который вы пополняли баланс.', 
-        en: 'Go to the website blacktemple.online or open the Telegram bot @blacktemple_space_bot. Use the service where you added funds.' 
+        ru: 'Перейдите на сайт [blacktemple.online](https://blacktemple.online) или откройте Telegram-бота [@blacktemple_space_bot](https://t.me/blacktemple_space_bot). Используйте тот сервис, через который вы пополняли баланс.', 
+        en: 'Go to the website [blacktemple.online](https://blacktemple.online) or open the Telegram bot [@blacktemple_space_bot](https://t.me/blacktemple_space_bot). Use the service where you added funds.' 
       }
     },
     {
@@ -125,8 +125,8 @@ const getAddDeviceGuide = (): Guide => ({
     {
       title: { ru: 'Зайдите в личный кабинет', en: 'Log in to your dashboard' },
       text: { 
-        ru: 'Через сайт: blacktemple.online\nИли через Telegram-бота: @blacktemple_space_bot', 
-        en: 'Via website: blacktemple.online\nOr via Telegram bot: @blacktemple_space_bot' 
+        ru: 'Через сайт: [blacktemple.online](https://blacktemple.online)\nИли через Telegram-бота: [@blacktemple_space_bot](https://t.me/blacktemple_space_bot)', 
+        en: 'Via website: [blacktemple.online](https://blacktemple.online)\nOr via Telegram bot: [@blacktemple_space_bot](https://t.me/blacktemple_space_bot)' 
       }
     },
     {
@@ -336,8 +336,8 @@ const getChangePlanGuide = (): Guide => ({
     {
       title: { ru: 'Войдите в личный кабинет', en: 'Log in to your dashboard' },
       text: { 
-        ru: 'Перейдите на сайт blacktemple.online или откройте Telegram-бота @blacktemple_space_bot.\n\nВажно: Заходите через ту платформу, где вы обычно пополняете баланс.', 
-        en: 'Go to the website blacktemple.online or open the Telegram bot @blacktemple_space_bot.\n\nImportant: Log in using the platform where you usually add funds.' 
+        ru: 'Перейдите на сайт [blacktemple.online](https://blacktemple.online) или откройте Telegram-бота [@blacktemple_space_bot](https://t.me/blacktemple_space_bot).\n\nВажно: Заходите через ту платформу, где вы обычно пополняете баланс.', 
+        en: 'Go to the website [blacktemple.online](https://blacktemple.online) or open the Telegram bot [@blacktemple_space_bot](https://t.me/blacktemple_space_bot).\n\nImportant: Log in using the platform where you usually add funds.' 
       }
     },
     {
@@ -434,6 +434,185 @@ const getRuSitesGuide = (): Guide => ({
   ]
 });
 
+const getVpnPermissionErrorGuide = (platform: 'ios' | 'android'): Guide => {
+  const steps: Step[] = [];
+
+  if (platform === 'android') {
+    steps.push({
+      title: { ru: 'Откройте настройки сети', en: 'Open network settings' },
+      text: { 
+        ru: 'Зайдите в Настройки телефона.\nВыберите раздел Сеть и интернет (на некоторых телефонах он называется «Подключения» или «Другие подключения»).\nНайдите пункт VPN.', 
+        en: 'Go to your phone\'s Settings.\nSelect Network & internet (on some phones it is called "Connections" or "Other connections").\nFind VPN.' 
+      }
+    });
+    steps.push({
+      title: { ru: 'Отключите Постоянный VPN у других приложений', en: 'Disable Always-on VPN for other apps' },
+      text: { 
+        ru: 'Вы увидите список установленных VPN-приложений. Нажмите на значок шестеренки ⚙️ рядом с тем приложением, которое вы использовали ранее (например, Amnezia, Happ или любой другой сервис).\nВыключите тумблер «Постоянный VPN» (или Always-on VPN).', 
+        en: 'You will see a list of installed VPN apps. Tap the gear icon ⚙️ next to the app you used previously (e.g., Amnezia, Happ, etc.).\nTurn off the "Always-on VPN" switch.' 
+      }
+    });
+    steps.push({
+      title: { ru: 'Завершите настройку', en: 'Complete the setup' },
+      text: { 
+        ru: 'Также убедитесь, что выключен пункт «Блокировать соединения без VPN».\nВернитесь в приложение BlackTemple и нажмите «Далее».', 
+        en: 'Also ensure that "Block connections without VPN" is turned off.\nReturn to the BlackTemple app and press "Next".' 
+      }
+    });
+  } else {
+    // ios
+    steps.push({
+      title: { ru: 'Зайдите в настройки VPN', en: 'Go to VPN settings' },
+      text: { 
+        ru: 'На iOS логика немного другая — система сама переключает профили, но иногда старые конфигурации мешают работе.\n\nЗайдите в Настройки -> Основные.\nНайдите пункт VPN и управление устройством.\nНажмите на раздел VPN.', 
+        en: 'On iOS the logic is slightly different — the system switches profiles itself, but sometimes old configurations interfere.\n\nGo to Settings -> General.\nFind VPN & Device Management.\nTap on the VPN section.' 
+      }
+    });
+    steps.push({
+      title: { ru: 'Отключите «Подключение по запросу»', en: 'Disable "Connect On Demand"' },
+      text: { 
+        ru: 'Если там включен какой-либо другой профиль (стоит синяя галочка), попробуйте нажать на значок (i) рядом с ним и убедиться, что «Подключение по запросу» выключено.', 
+        en: 'If any other profile is enabled there (blue checkmark), try tapping the (i) icon next to it and make sure "Connect On Demand" is turned off.' 
+      }
+    });
+    steps.push({
+      title: { ru: 'Удалите старые профили (при необходимости)', en: 'Delete old profiles (if necessary)' },
+      text: { 
+        ru: 'Если проблема сохраняется, удалите старые профили VPN, которыми вы больше не пользуетесь, и перезапустите BlackTemple.', 
+        en: 'If the problem persists, delete old VPN profiles you no longer use and restart BlackTemple.' 
+      }
+    });
+  }
+
+  return {
+    slug: 'vpn-permission-error',
+    title: { ru: 'Ошибка «Кажется Вы не дали разрешение»', en: 'Error "Seems you didn\'t grant permission"' },
+    description: { 
+      ru: 'Что делать, если после скачивания появляется ошибка о разрешениях, хотя вы их уже дали.', 
+      en: 'What to do if a permission error appears after downloading, even though you already granted them.' 
+    },
+    warning: {
+      ru: 'Если вы уже нажимали «Разрешить» при первом запуске, но приложение всё равно показывает этот экран, значит в настройках телефона включена функция «Постоянный VPN» (или аналогичная) для другого приложения. Её нужно отключить.',
+      en: 'If you already tapped "Allow" on the first launch, but the app still shows this screen, it means "Always-on VPN" (or similar) is enabled for another app in your phone settings. It must be disabled.'
+    },
+    steps
+  };
+};
+
+const getMissedPaymentGuide = (): Guide => ({
+  slug: 'missed-payment',
+  title: { ru: 'Средства не поступили на баланс', en: 'Funds not credited to balance' },
+  description: {
+    ru: 'Что делать, если после оплаты баланс не пополнился.',
+    en: 'What to do if your balance was not updated after payment.'
+  },
+  warning: {
+    ru: 'Не переживайте, все платежи проходят через официальный шлюз банка и фиксируются в системе.',
+    en: 'Do not worry, all payments go through an official bank gateway and are recorded in the system.'
+  },
+  steps: [
+    {
+      title: { ru: 'Подождите 1 час', en: 'Wait 1 hour' },
+      text: {
+        ru: 'Обычно средства зачисляются мгновенно, но из-за особенностей работы банковских систем и подтверждений транзакций задержка может составлять до 60 минут.',
+        en: 'Usually, funds are credited instantly, but due to the specifics of banking systems and transaction confirmations, the delay can be up to 60 minutes.'
+      }
+    },
+    {
+      title: { ru: 'Проверьте чек', en: 'Check your receipt' },
+      text: {
+        ru: 'Убедитесь, что оплата прошла успешно и средства списались с вашей карты. Копия чека должна прийти на почту, которую вы указывали при оплате.',
+        en: 'Make sure the payment was successful and the funds were debited from your card. a copy of the receipt should be sent to the email you provided during payment.'
+      }
+    },
+    {
+      title: { ru: 'Обратитесь в техподдержку', en: 'Contact Support' },
+      text: {
+        ru: 'Если с момента оплаты прошло более одного часа, а баланс в боте или на сайте не обновился — напишите нам.\n\nДля обращения подготовьте:\n• Скриншот чека об оплате.\n• Ваш ID в боте (его можно найти в личном кабинете).',
+        en: 'If more than an hour has passed since payment and the balance in the bot or on the website has not updated — write to us.\n\nPrepare for your ticket:\n• Screenshot of the payment receipt.\n• Your bot ID (can be found in your dashboard).'
+      }
+    }
+  ]
+});
+
+const getGeminiGuide = (platform: string): Guide => {
+  const steps: Step[] = [
+    {
+      title: { ru: 'Проверка через Инкогнито и кэш', en: 'Check via Incognito and cache' },
+      text: {
+        ru: 'Google часто блокирует доступ, используя данные о вашем местоположении из текущего аккаунта или кэша.\n\nПопробуйте зайти в Gemini через режим Инкогнито.\n\nЕсли в инкогнито работает: очистите кэш и cookie в настройках браузера.\n\nЕсли не помогает: создайте новый, «чистый» Google-аккаунт под включенным VPN специально для нейросети.',
+        en: 'Google often blocks access using location data from your current account or cache.\n\nTry accessing Gemini through Incognito mode.\n\nIf it works in Incognito: clear your browser\'s cache and cookies.\n\nIf it doesn\'t help: create a new, "clean" Google account while connected to the VPN specifically for the AI.'
+      }
+    },
+    {
+      title: { ru: 'Отключение режима для отдельных приложений', en: 'Disable per-app VPN' },
+      text: {
+        ru: 'Если у вас включена фильтрация трафика, VPN может просто не подхватывать нужные запросы.\n\nЗайдите в Настройки приложения.\n\nОтключите «Режим для отдельных приложений», если он был включен. Весь трафик устройства должен идти через VPN.',
+        en: 'If you have traffic filtering enabled, the VPN may simply not intercept the necessary requests.\n\nGo to the app Settings.\n\nDisable "Per-app proxy" if it was enabled. All device traffic must go through the VPN.'
+      }
+    }
+  ];
+
+  if (platform !== 'Android') {
+    steps.push({
+      title: { ru: 'Обновление GeoIP и Geosite', en: 'Update GeoIP and Geosite' },
+      text: {
+        ru: 'Нужно обновить внутренние списки адресов, чтобы приложение корректно определяло сервисы Google.\n\nВ приложении нажмите на 3 полоски (меню) -> Настройки.\n\nНажмите кнопку "Обновить GeoIP и обновить geosite".\n\nПерезагрузите устройство и проверьте работу.',
+        en: 'You need to update internal address lists so the app can correctly detect Google services.\n\nIn the app, click the 3 lines (menu) -> Settings.\n\nClick the "Update GeoIP" and "Update geosite" buttons.\n\nRestart your device and check if it works.'
+      }
+    });
+  }
+
+  return {
+    slug: 'gemini-error',
+    title: { ru: 'Что делать, если не работает Gemini?', en: 'What to do if Gemini doesn\'t work?' },
+    description: {
+      ru: 'Если Google Gemini выдает ошибку региона или не загружается при включенном VPN, выполните эти шаги.',
+      en: 'If Google Gemini gives a region error or does not load while connected to VPN, follow these steps.'
+    },
+    steps
+  };
+};
+
+const getDownloadAppGuide = (platform: 'ios' | 'android'): Guide => {
+  const steps: Step[] = [];
+
+  if (platform === 'android') {
+    steps.push({
+      title: { ru: 'Вариант 1: Настройка Google Play', en: 'Option 1: Google Play setup' },
+      text: {
+        ru: 'Включите VPN и выберите страну (рекомендуем США или Германия).\n\nСоздайте новый аккаунт Google, не выключая VPN.\n\nОткройте Google Play, нажмите на иконку профиля и переключитесь на этот новый аккаунт.\n\nЗайдите в Настройки телефона -> Приложения -> Google Play. Нажмите «Остановить» и «Очистить кэш».\n\nПерезагрузите устройство и ищите приложение заново.',
+        en: 'Turn on VPN and select a country (US or Germany recommended).\n\nCreate a new Google account without turning off VPN.\n\nOpen Google Play, click on the profile icon and switch to this new account.\n\nGo to Phone Settings -> Apps -> Google Play. Click "Force stop" and "Clear cache".\n\nRestart your device and search for the app again.'
+      }
+    });
+    steps.push({
+      title: { ru: 'Вариант 2: Прямая загрузка (если первый способ не помог)', en: 'Option 2: Direct download (if the first method failed)' },
+      text: {
+        ru: 'Этот метод полностью обходит ограничения магазина. Просто скачайте установочный файл напрямую со включенным VPN:\n\n[apkpure.com](https://apkpure.com)\n[apkmirror.com](https://www.apkmirror.com)\n\nНайдите нужное приложение на сайте, скачайте APK-файл и установите его как обычный файл. 😊',
+        en: 'This method completely bypasses store restrictions. Just download the installation file directly with VPN enabled:\n\n[apkpure.com](https://apkpure.com)\n[apkmirror.com](https://www.apkmirror.com)\n\nFind the needed app on the site, download the APK file and install it as a regular file. 😊'
+      }
+    });
+  } else {
+    steps.push({
+      title: { ru: 'Создание нового профиля Apple ID', en: 'Creating a new Apple ID profile' },
+      text: {
+        ru: 'На iPhone альтернативных магазинов нет, поэтому поможет только создание нового профиля:\n\nВключите VPN и выберите нужную страну.\n\nЗайдите в Настройки -> Ваше имя -> Медиаматериалы и покупки -> Выйти.\n\nСоздайте новый Apple ID со включенным VPN, при регистрации выберите страну (например, США или Казахстан).\n\nВойдите в App Store под новым аккаунтом.\n\nНайдите и скачайте нужное приложение.\n\nПосле установки можно вернуться на свой основной аккаунт — приложение останется на устройстве и будет работать.',
+        en: 'There are no alternative stores on iPhone, so only creating a new profile will help:\n\nTurn on VPN and choose the desired country.\n\nGo to Settings -> Your Name -> Media & Purchases -> Sign Out.\n\nCreate a new Apple ID with VPN enabled, select a country during registration (e.g., USA or Kazakhstan).\n\nLog into the App Store with the new account.\n\nFind and download the application.\n\nAfter installation, you can return to your main account — the app will remain on the device and work.'
+      }
+    });
+  }
+
+  return {
+    slug: 'download-unavailable-apps',
+    title: { ru: 'Как скачать недоступные приложения', en: 'How to download unavailable apps' },
+    description: {
+      ru: 'Что делать, если нужное приложение не ищется или пишет «Недоступно в вашем регионе».',
+      en: 'What to do if the required application is not found or says "Unavailable in your region".'
+    },
+    steps
+  };
+};
+
 export const knowledgeBase: Category[] = [
   {
     slug: 'windows',
@@ -473,8 +652,10 @@ export const knowledgeBase: Category[] = [
       getFindKeyGuide(),
       getAddDeviceGuide(),
       getChangePlanGuide(),
+      getMissedPaymentGuide(),
       getConnectionErrorGuide('windows'),
       getTelegramGuide('Windows'),
+      getGeminiGuide('Windows'),
       getSlowSitesGuide('Windows'),
       getRuSitesGuide()
     ]
@@ -508,8 +689,10 @@ export const knowledgeBase: Category[] = [
       getFindKeyGuide(),
       getAddDeviceGuide(),
       getChangePlanGuide(),
+      getMissedPaymentGuide(),
       getConnectionErrorGuide('other'),
       getTelegramGuide('macOS'),
+      getGeminiGuide('macOS'),
       getSlowSitesGuide('macOS'),
       getRuSitesGuide()
     ]
@@ -544,8 +727,11 @@ export const knowledgeBase: Category[] = [
       getAddDeviceGuide(),
       getChangePlanGuide(),
       getConnectionErrorGuide('mobile'),
+      getVpnPermissionErrorGuide('ios'),
       getTelegramGuide('iOS'),
+      getGeminiGuide('iOS'),
       getWhatsAppGuide(),
+      getDownloadAppGuide('ios'),
       getTikTokIosGuide(),
       getVpnDisconnectIosGuide(),
       getSlowSitesGuide('iOS'),
@@ -582,8 +768,11 @@ export const knowledgeBase: Category[] = [
       getAddDeviceGuide(),
       getChangePlanGuide(),
       getConnectionErrorGuide('mobile'),
+      getVpnPermissionErrorGuide('android'),
       getTelegramGuide('Android'),
+      getGeminiGuide('Android'),
       getWhatsAppGuide(),
+      getDownloadAppGuide('android'),
       getTikTokAndroidGuide(),
       getVpnDisconnectAndroidGuide(),
       getSlowSitesGuide('Android'),
@@ -622,7 +811,7 @@ export const knowledgeBase: Category[] = [
         steps: [
           {
             title: { ru: 'Войдите в личный кабинет', en: 'Log in to your dashboard' },
-            text: { ru: 'Откройте сайт blacktemple.online или Telegram-бота @blacktemple_space_bot (в зависимости от того, где вы пополняли баланс).', en: 'Open the website blacktemple.online or the Telegram bot @blacktemple_space_bot (depending on where you added funds).' }
+            text: { ru: 'Откройте сайт [blacktemple.online](https://blacktemple.online) или Telegram-бота [@blacktemple_space_bot](https://t.me/blacktemple_space_bot) (в зависимости от того, где вы пополняли баланс).', en: 'Open the website [blacktemple.online](https://blacktemple.online) or the Telegram bot [@blacktemple_space_bot](https://t.me/blacktemple_space_bot) (depending on where you added funds).' }
           },
           {
             title: { ru: 'Найдите раздел «Мои устройства»', en: 'Find "My Devices"' },
@@ -643,7 +832,8 @@ export const knowledgeBase: Category[] = [
         ]
       },
       getAddDeviceGuide(),
-      getChangePlanGuide()
+      getChangePlanGuide(),
+      getMissedPaymentGuide()
     ]
   }
 ];

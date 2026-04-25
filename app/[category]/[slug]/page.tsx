@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { useLanguage } from '@/components/LanguageProvider';
 import { CopyButton } from '@/components/CopyButton';
+import Markdown from 'react-markdown';
 
 export default function GuidePage({ params }: { params: Promise<{ category: string, slug: string }> }) {
   const { category: categorySlug, slug: guideSlug } = use(params);
@@ -60,7 +61,11 @@ export default function GuidePage({ params }: { params: Promise<{ category: stri
               </div>
 
               <div className="pl-10 space-y-4">
-                {step.text && <p className="text-sm text-zinc-500 leading-relaxed whitespace-pre-wrap">{step.text[lang]}</p>}
+                {step.text && (
+                  <div className="text-sm text-zinc-500 leading-relaxed whitespace-pre-wrap prose prose-invert prose-zinc max-w-none prose-p:my-0 prose-a:text-white prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-zinc-300">
+                    <Markdown>{step.text[lang]}</Markdown>
+                  </div>
+                )}
                 
                 {step.code && (
                   <div className="border border-zinc-800 p-6 bg-zinc-900/40 relative group mt-4">
