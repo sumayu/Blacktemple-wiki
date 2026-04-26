@@ -45,6 +45,17 @@ const getBlackProtocolMigrationStep = (categorySlug: string): Step => ({
   }
 });
 
+const getBasicChecksStep = (): Step => ({
+  title: {
+    ru: 'Проверка базовых настроек',
+    en: 'Basic settings check'
+  },
+  text: {
+    ru: 'Если подключение не устанавливается или постоянно обрывается, перед дальнейшими шагами обязательно проверьте два важных пункта:\n\n**Актуальное время и дата**\nVPN-протоколы очень чувствительны к рассинхронизации времени. Если время на вашем устройстве отстает или спешит даже на пару минут, защищенное соединение не установится.\n\n**Решение:** Зайдите в настройки телефона или ПК и убедитесь, что включена функция «Автоматическое определение времени» (по сети).\n\n**Конфликтующие программы (Zapret, GoodbyeDPI, другие VPN)**\nУбедитесь, что у вас выключены сторонние программы для обхода блокировок (например, Zapret, GoodbyeDPI или включенные расширения в браузере).\n\n**Решение:** Полностью закройте или отключите подобный софт, так как он перехватывает сетевой трафик и напрямую блокирует работу BlackTemple.',
+    en: 'If the connection is not established or constantly drops, be sure to check two important points before taking further steps:\n\n**Correct time and date**\nVPN protocols are very sensitive to time desynchronization. If the time on your device is behind or ahead by even a couple of minutes, the secure connection will not be established.\n\n**Solution:** Go to your phone or PC settings and make sure the "Automatic time" (network-provided) feature is enabled.\n\n**Conflicting programs (Zapret, GoodbyeDPI, other VPNs)**\nMake sure that third-party bypass programs (e.g., Zapret, GoodbyeDPI, or active browser extensions) are turned off.\n\n**Solution:** Completely close or disable such software, as it intercepts network traffic and directly blocks BlackTemple from working.'
+  }
+});
+
 const getTelegramGuide = (platformName: string, categorySlug: string): Guide => ({
   slug: 'telegram-not-working',
   title: { ru: 'Не работает Telegram', en: 'Telegram is not working' },
@@ -412,6 +423,46 @@ const getVpnDisconnectAndroidGuide = (categorySlug: string): Guide => ({
   ]
 });
 
+const getAppVsDashboardBalanceGuide = (categorySlug: string): Guide => ({
+  slug: 'app-vs-dashboard-balance',
+  title: { ru: '⚖️ Разный баланс в приложении и личном кабинете', en: '⚖️ Different balance in the app and dashboard' },
+  description: {
+    ru: 'Если вы заметили, что сумма в боте/на сайте отличается от той, что показывает приложение BlackTemple — не волнуйтесь. Это чисто визуальная задержка отображения, которая не влияет на работу вашего VPN.',
+    en: 'If you notice that the amount in the bot/website differs from what the BlackTemple app shows — don\'t worry. This is purely a visual display delay that does not affect your VPN.'
+  },
+  steps: [
+    {
+      title: { ru: 'Почему так происходит?', en: 'Why does this happen?' },
+      text: {
+        ru: 'Данные между сервером оплаты и приложением на вашем устройстве могут обновляться с небольшой задержкой. Система видит ваши средства, даже если цифра в приложении еще не успела измениться.',
+        en: 'Data between the payment server and the app on your device may update with a slight delay. The system sees your funds even if the number in the app hasn\'t changed yet.'
+      }
+    },
+    {
+      title: { ru: '1. Сверьте ID пользователя', en: '1. Check User ID' },
+      text: {
+        ru: 'Убедитесь, что вы смотрите баланс одного и того же аккаунта.\n\n1. В боте/на сайте найдите ваш ID (в личном кабинете).\n2. В приложении откройте меню (3 полоски) -> нажмите на значок кошелька -> и сверьте userid.\n\n**Если ID разные:** Значит, вы вошли в разные аккаунты. Чтобы разобраться в этой ситуации, воспользуйтесь нашей инструкцией по ссылке ниже.',
+        en: 'Make sure you are looking at the balance of the same account.\n\n1. In the bot/website, find your ID (in the dashboard).\n2. In the app, open the menu (3 lines) -> click on the wallet icon -> and check userid.\n\n**If the IDs are different:** It means you logged into different accounts. To resolve this situation, use our guide via the link below.'
+      },
+      internalLink: {
+        url: `/${categorySlug}/different-balance`,
+        text: { ru: 'Почему баланс в боте и на сайте отличается?', en: 'Why do the bot and website balances differ?' }
+      }
+    },
+    {
+      title: { ru: '2. Дождитесь обновления данных', en: '2. Wait for data to update' },
+      text: {
+        ru: 'Если ID совпадают, значит, данные просто еще не синхронизировались. Ожидайте, данные синхронизируются. Если хотите ускорить процесс - переустановите приложение. (Переустанавливать приложение не обязательно, рассинхронизация никак не затронет работу VPN).',
+        en: 'If the IDs match, it means the data just hasn\'t synchronized yet. Wait, the data will sync. If you want to speed up the process, reinstall the app. (Reinstalling the app is not required; desynchronization will not affect VPN functionality at all).'
+      },
+      internalLink: {
+        url: `/${categorySlug}/install`,
+        text: { ru: 'Гайд по установке', en: 'Installation guide' }
+      }
+    }
+  ]
+});
+
 const getDifferentBalanceGuide = (): Guide => ({
   slug: 'different-balance',
   title: { ru: 'Почему баланс в боте и на сайте отличается?', en: 'Why do the bot and website balances differ?' },
@@ -680,6 +731,7 @@ const getKeyErrorGuide = (platform: string, categorySlug: string): Guide => {
           en: '• **Restart the device.** This will reset system network errors.' 
         }
       },
+      getBasicChecksStep(),
       {
         title: { ru: 'Способ 2: Попробуйте другой способ добавления ключа', en: 'Method 2: Try another way to add the key' },
         text: { 
@@ -732,6 +784,8 @@ const getConnectionErrorGuide = (platform: 'windows' | 'mobile' | 'other', categ
       }
     });
   }
+
+  steps.push(getBasicChecksStep());
 
   steps.push({
     title: { ru: 'Шаг 2: Использование функции White List', en: 'Step 2: Using the White List function' },
@@ -848,7 +902,7 @@ const getVpnPermissionErrorGuide = (platform: 'ios' | 'android'): Guide => {
   };
 };
 
-const getMissedPaymentGuide = (): Guide => ({
+const getMissedPaymentGuide = (categorySlug: string): Guide => ({
   slug: 'missed-payment',
   title: { ru: 'Средства не поступили на баланс', en: 'Funds not credited to balance' },
   description: {
@@ -863,8 +917,12 @@ const getMissedPaymentGuide = (): Guide => ({
     {
       title: { ru: 'Проверьте, какой аккаунт вы пополнили', en: 'Check which account you topped up' },
       text: {
-        ru: 'Это самая частая причина, по которой пользователи не видят свои деньги. У BlackTemple есть две независимые системы. Представьте, что это два разных кошелька, которые по умолчанию не связаны между собой:\n\n**👛 Кошелек А: В Telegram-боте**\nОткройте бота [@blacktemple_space_bot](https://t.me/blacktemple_space_bot), нажмите кнопку «Баланс» и проверьте, поступили ли средства. Если вы платили через интерфейс бота, деньги будут здесь.\n\n_Если вы пополнили баланс на сайте, а зашли в бота — денег в боте не будет, пока вы не объедините аккаунты._\n\n**🌐 Кошелек Б: На сайте blacktemple.online**\nЗайдите на сайт через браузер и посмотрите на баланс в личном кабинете.\n\nЭто отдельный личный кабинет. Вы могли зарегистрироваться на сайте под одной почтой, а оплату провести в боте — в этом случае система создаст два разных профиля, и баланс на них будет разным. Пожалуйста, проверьте обе площадки на наличие пополнения. Подробнее об этом: [Почему баланс в боте и на сайте отличается?](different-balance)\n\nЕсли мы нашли нужную нам площадку — используем ключ от нее. Инструкция по поиску: [Как найти ваш ключ (KEY)](find-key)',
-        en: 'This is the most common reason users don\'t see their money. BlackTemple has two independent systems. Imagine them as two different wallets that are not linked by default:\n\n**👛 Wallet A: In Telegram bot**\nOpen the bot [@blacktemple_space_bot](https://t.me/blacktemple_space_bot), tap the "Balance" button and check if the funds arrived. If you paid via the bot interface, the money will be here.\n\n_If you topped up on the website but checked in the bot — the money won\'t be in the bot until you link the accounts._\n\n**🌐 Wallet B: On blacktemple.online**\nGo to the website via browser and check your dashboard balance.\n\nThis is a separate dashboard. You could have registered on the site with one email, but paid in the bot — in this case, the system creates two different profiles, and their balances will differ. Please check both platforms. Read more here: [Why does the balance in the bot and on the website differ?](different-balance)\n\nIf you found the right platform — use its key. Guide on finding it: [How to find your key (KEY)](find-key)'
+        ru: 'Это самая частая причина, по которой пользователи не видят свои деньги. У BlackTemple есть две независимые системы. Представьте, что это два разных кошелька, которые по умолчанию не связаны между собой:\n\n**👛 Кошелек А: В Telegram-боте**\nОткройте бота [@blacktemple_space_bot](https://t.me/blacktemple_space_bot), нажмите кнопку «Баланс» и проверьте, поступили ли средства. Если вы платили через интерфейс бота, деньги будут здесь.\n\n_Если вы пополнили баланс на сайте, а зашли в бота — денег в боте не будет, пока вы не объедините аккаунты._\n\n**🌐 Кошелек Б: На сайте blacktemple.online**\nЗайдите на сайт через браузер и посмотрите на баланс в личном кабинете.\n\nЭто отдельный личный кабинет. Вы могли зарегистрироваться на сайте под одной почтой, а оплату провести в боте — в этом случае система создаст два разных профиля, и баланс на них будет разным. Пожалуйста, проверьте обе площадки на наличие пополнения.\n\n**Задержка отображения в приложении**\nЕсли вы видите деньги в боте или на сайте, но они не отображаются в самом приложении BlackTemple на вашем устройстве — это визуальная задержка, которая не влияет на работу VPN.\n\nЕсли мы нашли нужную нам площадку — используем ключ от нее. Инструкция по поиску: [Как найти ваш ключ (KEY)](find-key)',
+        en: 'This is the most common reason users don\'t see their money. BlackTemple has two independent systems. Imagine them as two different wallets that are not linked by default:\n\n**👛 Wallet A: In Telegram bot**\nOpen the bot [@blacktemple_space_bot](https://t.me/blacktemple_space_bot), tap the "Balance" button and check if the funds arrived. If you paid via the bot interface, the money will be here.\n\n_If you topped up on the website but checked in the bot — the money won\'t be in the bot until you link the accounts._\n\n**🌐 Wallet B: On blacktemple.online**\nGo to the website via browser and check your dashboard balance.\n\nThis is a separate dashboard. You could have registered on the site with one email, but paid in the bot — in this case, the system creates two different profiles, and their balances will differ. Please check both platforms.\n\n**Display delay in the app**\nIf you see money in the bot or on the website, but it does not appear in the BlackTemple app on your device — this is a visual delay that does not affect the VPN operation.\n\nIf you found the right platform — use its key. Guide on finding it: [How to find your key (KEY)](find-key)'
+      },
+      internalLink: {
+        url: `/${categorySlug}/app-vs-dashboard-balance`,
+        text: { ru: '⚖️ Разный баланс в приложении и личном кабинете', en: '⚖️ Different balance in the app and dashboard' }
       }
     },
     {
@@ -1075,9 +1133,10 @@ export const knowledgeBase: Category[] = [
       getAddDeviceGuide(),
       getRemoveDeviceGuide(),
       getChangePlanGuide(),
-      getMissedPaymentGuide(),
+      getMissedPaymentGuide('windows'),
       getBotProblemsGuide(),
       getDifferentBalanceGuide(),
+      getAppVsDashboardBalanceGuide('windows'),
       getTorrentBanGuide(),
       getInternetProblemsGuide('windows'),
       getKeyErrorGuide('Windows', 'windows'),
@@ -1121,9 +1180,10 @@ export const knowledgeBase: Category[] = [
       getAddDeviceGuide(),
       getRemoveDeviceGuide(),
       getChangePlanGuide(),
-      getMissedPaymentGuide(),
+      getMissedPaymentGuide('macos'),
       getBotProblemsGuide(),
       getDifferentBalanceGuide(),
+      getAppVsDashboardBalanceGuide('macos'),
       getTorrentBanGuide(),
       getInternetProblemsGuide('macos'),
       getKeyErrorGuide('macOS', 'macos'),
@@ -1167,9 +1227,10 @@ export const knowledgeBase: Category[] = [
       getAddDeviceGuide(),
       getRemoveDeviceGuide(),
       getChangePlanGuide(),
-      getMissedPaymentGuide(),
+      getMissedPaymentGuide('ios'),
       getBotProblemsGuide(),
       getDifferentBalanceGuide(),
+      getAppVsDashboardBalanceGuide('ios'),
       getTorrentBanGuide(),
       getInternetProblemsGuide('ios'),
       getKeyErrorGuide('iOS', 'ios'),
@@ -1218,9 +1279,10 @@ export const knowledgeBase: Category[] = [
       getAddDeviceGuide(),
       getRemoveDeviceGuide(),
       getChangePlanGuide(),
-      getMissedPaymentGuide(),
+      getMissedPaymentGuide('android'),
       getBotProblemsGuide(),
       getDifferentBalanceGuide(),
+      getAppVsDashboardBalanceGuide('android'),
       getTorrentBanGuide(),
       getInternetProblemsGuide('android'),
       getKeyErrorGuide('Android', 'android'),
@@ -1265,9 +1327,10 @@ export const knowledgeBase: Category[] = [
       getAddDeviceGuide(),
       getRemoveDeviceGuide(),
       getChangePlanGuide(),
-      getMissedPaymentGuide(),
+      getMissedPaymentGuide('linux'),
       getBotProblemsGuide(),
       getDifferentBalanceGuide(),
+      getAppVsDashboardBalanceGuide('linux'),
       getTorrentBanGuide()
     ]
   }
