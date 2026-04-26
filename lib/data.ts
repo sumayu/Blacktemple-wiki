@@ -626,8 +626,23 @@ const getInternetProblemsGuide = (categorySlug: string): Guide => ({
     {
       title: { ru: 'Шаг 1: Использование функции White List', en: 'Step 1: Using the White List function' },
       text: { 
-        ru: 'В нашем приложении есть специальный инструмент для обхода таких ограничений.\n\n1. Зайдите в Настройки приложения BlackTemple.\n2. Найдите и включите функцию White List.\n3. Попробуйте переподключиться.\n\n**Важно:** Данная функция — это продвинутая технология обхода, которая доступна только на тарифе BlackRock (от 4,5 руб/сутки). На базовом тарифе BlackEasy эта функция не поддерживается.', 
-        en: 'Our app has a special tool to bypass such restrictions.\n\n1. Go to the BlackTemple app Settings.\n2. Find and enable the White List function.\n3. Try to reconnect.\n\n**Important:** This function is an advanced bypass technology available only on the BlackRock plan (from 4.5 rubles/day). This function is not supported on the basic BlackEasy plan.' 
+        ru: 'В нашем приложении есть специальный инструмент для обхода таких ограничений.\n\n1. Зайдите в Настройки приложения BlackTemple.\n2. Найдите и включите функцию White List.\n3. Попробуйте переподключиться.\n\n**Важно:** Данная функция — это продвинутая технология обхода, которая доступна только на тарифе BlackRock (от 4,5 руб/сутки). На базовом тарифе BlackEasy эта функция не поддерживается.\n\n**Если кнопки функции White List нет:**\nЭто означает, что у вас либо устаревший клиент (версия ниже 1.3.2), либо используется устаревший протокол VLESS. Вам необходимо обновить приложение и сменить протокол на Black.', 
+        en: 'Our app has a special tool to bypass such restrictions.\n\n1. Go to the BlackTemple app Settings.\n2. Find and enable the White List function.\n3. Try to reconnect.\n\n**Important:** This function is an advanced bypass technology available only on the BlackRock plan (from 4.5 rubles/day). This function is not supported on the basic BlackEasy plan.\n\n**If the White List button is missing:**\nThis means that you either have an outdated client (version below 1.3.2) or use the outdated VLESS protocol. You need to update the app and switch the protocol to Black.' 
+      },
+      internalLink: {
+        url: `/${categorySlug}/install`,
+        text: { ru: 'Скачать новую версию', en: 'Download new version' }
+      }
+    },
+    {
+      title: { ru: 'Обновить протокол до Black', en: 'Update protocol to Black' },
+      text: {
+        ru: 'Если вы обновили приложение, но кнопки White List все еще нет — смените установленный старый VLESS протокол на свежий Black.',
+        en: 'If you have updated the app but the White List button is still missing, change the installed old VLESS protocol to the fresh Black.'
+      },
+      internalLink: {
+        url: `/${categorySlug}/black-protocol`,
+        text: { ru: 'Инструкция по обновлению протокола на Black', en: 'Guide on updating protocol to Black' }
       }
     },
     {
