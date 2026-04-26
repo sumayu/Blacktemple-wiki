@@ -33,7 +33,19 @@ export type Category = {
   guides: Guide[];
 };
 
-const getTelegramGuide = (platformName: string): Guide => ({
+const getBlackProtocolMigrationStep = (categorySlug: string): Step => ({
+  title: { ru: '🚀 Обновление системы: Переход на Black', en: '🚀 System Update: Switch to Black' },
+  text: { 
+    ru: 'Мы постепенно выводим протокол VLESS из эксплуатации для мобильных устройств, так как он стал менее эффективным. Для обеспечения максимальной скорости и бесперебойной работы используйте наш приоритетный протокол — Black.\nПримечание: Не подходит для Windows 7, Linux и Mac Intel.', 
+    en: 'We are gradually phasing out the VLESS protocol for mobile devices as it has become less effective. To ensure maximum speed and uninterrupted operation, use our priority protocol — Black.\nNote: Not suitable for Windows 7, Linux, and Mac Intel.' 
+  },
+  internalLink: {
+    url: `/${categorySlug}/black-protocol`,
+    text: { ru: 'Узнать, как сменить протокол', en: 'Learn how to change protocol' }
+  }
+});
+
+const getTelegramGuide = (platformName: string, categorySlug: string): Guide => ({
   slug: 'telegram-not-working',
   title: { ru: 'Не работает Telegram', en: 'Telegram is not working' },
   description: { 
@@ -63,7 +75,8 @@ const getTelegramGuide = (platformName: string): Guide => ({
     {
       title: { ru: 'Для пользователей Telegram Web', en: 'For Telegram Web users' },
       text: { ru: 'Если используете веб-версию, протестируйте обе доступные версии (web.telegram.org/k/ и web.telegram.org/a/).', en: 'If using the web version, test both available versions (web.telegram.org/k/ and web.telegram.org/a/).' }
-    }
+    },
+    getBlackProtocolMigrationStep(categorySlug)
   ]
 });
 
@@ -125,8 +138,8 @@ const getRemoveDeviceGuide = (): Guide => ({
     {
       title: { ru: 'Шаг 1: Авторизация', en: 'Step 1: Authorization' },
       text: { 
-        ru: 'Зайдите в нашего бота или в личный кабинет на сайте.', 
-        en: 'Log in to our bot or dashboard on the website.' 
+        ru: 'Зайдите в нашего бота ([@blacktemple_space_bot](https://t.me/blacktemple_space_bot)) или в личный кабинет на [сайте](https://blacktemple.online).', 
+        en: 'Log in to our bot ([@blacktemple_space_bot](https://t.me/blacktemple_space_bot)) or dashboard on the [website](https://blacktemple.online).' 
       }
     },
     {
@@ -148,6 +161,88 @@ const getRemoveDeviceGuide = (): Guide => ({
       text: { 
         ru: 'Нажмите кнопку «Удалить» и подтвердите действие.', 
         en: 'Click the "Delete" button and confirm the action.' 
+      }
+    }
+  ]
+});
+
+const getVlessProtocolGuide = (): Guide => ({
+  slug: 'vless-protocol',
+  title: { ru: 'Как сменить протокол на VLESS', en: 'How to switch to VLESS protocol' },
+  description: { ru: 'Инструкция по переключению протокола устройства на VLESS.', en: 'Guide on switching your device protocol to VLESS.' },
+  steps: [
+    {
+      title: { ru: 'Войдите в личный кабинет', en: 'Log in to your dashboard' },
+      text: { ru: 'Откройте сайт [blacktemple.online](https://blacktemple.online) или Telegram-бота [@blacktemple_space_bot](https://t.me/blacktemple_space_bot) (в зависимости от того, где вы пополняли баланс).', en: 'Open the website [blacktemple.online](https://blacktemple.online) or the Telegram bot [@blacktemple_space_bot](https://t.me/blacktemple_space_bot) (depending on where you added funds).' }
+    },
+    {
+      title: { ru: 'Найдите раздел «Мои устройства»', en: 'Find "My Devices"' },
+      text: { ru: 'Пролистайте главную страницу вниз до списка ваших активных устройств.', en: 'Scroll down the main page to the list of your active devices.' }
+    },
+    {
+      title: { ru: 'Выберите устройство', en: 'Select a device' },
+      text: { ru: 'Нажмите на название нужного устройства (например, «Основной»).', en: 'Click on the name of the desired device (e.g., "Main").' }
+    },
+    {
+      title: { ru: 'Смените протокол', en: 'Change the protocol' },
+      text: { ru: 'В открывшемся меню найдите пункт «Протокол». Нажмите на текущий протокол и выберите из списка VLESS.', en: 'In the menu, find the "Protocol" setting. Click on your current protocol and select VLESS from the list.' }
+    },
+    {
+      title: { ru: 'Обновите ключ', en: 'Update the key' },
+      text: { ru: 'После смены протокола скопируйте обновленный ключ из поля KEY. Заново вставьте его в ваше VPN-приложение (например, в Happ), чтобы изменения вступили в силу.', en: 'After changing the protocol, copy the updated key from the KEY field. Paste it into your VPN application (e.g., Happ) for the changes to take effect.' }
+    }
+  ]
+});
+
+const getBlackProtocolGuide = (platformCategory: string): Guide => ({
+  slug: 'black-protocol',
+  title: { ru: 'Как сменить протокол на Black', en: 'How to switch to Black protocol' },
+  description: { 
+    ru: 'Инструкция по переключению на наш самый стабильный протокол для мобильных устройств и новых ПК.', 
+    en: 'Guide to switching to our most stable protocol for mobile devices and modern PCs.' 
+  },
+  warning: {
+    ru: '⚠️ **Важные ограничения протокола Black:**\nДанный протокол обеспечивает максимальную стабильность, но имеет технические ограничения по совместимости. Он НЕ БУДЕТ работать на:\n\n*   Windows 7 и версиях ниже.\n*   Linux (любые дистрибутивы).\n*   Mac на процессорах Intel (так как на них невозможно установить официальное приложение BlackTemple).\n\nСовет: Если у вас одно из этих устройств, используйте протокол VLESS и универсальное приложение Happ.',
+    en: '⚠️ **Important limitations of the Black protocol:**\nThis protocol provides maximum stability but has technical compatibility limitations. It WILL NOT work on:\n\n*   Windows 7 and below.\n*   Linux (all distributions).\n*   Mac with Intel processors (since it is impossible to install the official BlackTemple app on them).\n\nTip: If you have one of these devices, use the VLESS protocol and the universal Happ app.'
+  },
+  steps: [
+    {
+      title: { ru: '01. Войдите в личный кабинет', en: '01. Log in to your dashboard' },
+      text: { 
+        ru: 'Откройте сайт [blacktemple.online](https://blacktemple.online) или Telegram-бота [@blacktemple_space_bot](https://t.me/blacktemple_space_bot) (в зависимости от того, где вы пополняли баланс).', 
+        en: 'Open the website [blacktemple.online](https://blacktemple.online) or the Telegram bot [@blacktemple_space_bot](https://t.me/blacktemple_space_bot) (depending on where you topped up).' 
+      }
+    },
+    {
+      title: { ru: '02. Найдите раздел «Мои устройства»', en: '02. Find "My Devices" section' },
+      text: { 
+        ru: 'Пролистайте страницу до списка ваших активных устройств (ключей).', 
+        en: 'Scroll down the page to the list of your active devices (keys).' 
+      }
+    },
+    {
+      title: { ru: '03. Выберите устройство', en: '03. Select a device' },
+      text: { 
+        ru: 'Нажмите на название нужного устройства (например, «Основной»), которое вы хотите перевести на новый протокол.', 
+        en: 'Click on the name of the desired device (e.g., "Main") that you want to switch to the new protocol.' 
+      }
+    },
+    {
+      title: { ru: '04. Смените протокол на Black', en: '04. Change protocol to Black' },
+      text: { 
+        ru: 'В открывшемся меню найдите пункт «Протокол». Нажмите на него и выберите из списка Black.', 
+        en: 'In the menu, find the "Protocol" item. Click on it and select Black from the list.' 
+      }
+    },
+    {
+      title: { ru: '05. Обновите ключ в приложении', en: '05. Update the key in the app' },
+      text: { 
+        ru: 'После смены протокола скопируйте обновленный ключ из поля KEY. Заново добавьте его в ваше приложение BlackTemple, чтобы изменения вступили в силу.', 
+        en: 'After changing the protocol, copy the updated key from the KEY field. Re-add it to your BlackTemple app for the changes to take effect.' 
+      },
+      internalLink: {
+        url: `/${platformCategory}/vless-protocol`,
+        text: { ru: 'Инструкция на VLESS', en: 'VLESS Instruction' }
       }
     }
   ]
@@ -268,7 +363,7 @@ const getTikTokAndroidGuide = (): Guide => ({
   ]
 });
 
-const getVpnDisconnectIosGuide = (): Guide => ({
+const getVpnDisconnectIosGuide = (categorySlug: string): Guide => ({
   slug: 'vpn-disconnect',
   title: { ru: 'VPN отключается спустя время', en: 'VPN disconnects after a while' },
   description: {
@@ -293,11 +388,12 @@ const getVpnDisconnectIosGuide = (): Guide => ({
         ru: 'Откройте приложение BlackTemple. Нажмите на меню (три полоски в правом верхнем углу). Перейдите в раздел Настройки → Сложные настройки. Найдите пункт URL для проверки задержки. Выберите любой другой URL из списка. Перезагрузите телефон.', 
         en: 'Open the BlackTemple app. Tap the menu (three lines in the top right corner). Go to Settings → Advanced Settings. Find Speed Test URL. Select any other URL from the list. Restart your phone.' 
       }
-    }
+    },
+    getBlackProtocolMigrationStep(categorySlug)
   ]
 });
 
-const getVpnDisconnectAndroidGuide = (): Guide => ({
+const getVpnDisconnectAndroidGuide = (categorySlug: string): Guide => ({
   slug: 'vpn-disconnect',
   title: { ru: 'VPN отключается спустя время', en: 'VPN disconnects after a while' },
   description: {
@@ -311,7 +407,8 @@ const getVpnDisconnectAndroidGuide = (): Guide => ({
         ru: 'Откройте приложение BlackTemple. Нажмите на меню (три полоски в правом верхнем углу). Перейдите в раздел Настройки → Сложные настройки. Найдите пункт URL для проверки задержки. Выберите любой другой URL из списка. Перезагрузите телефон и попробуйте подключиться снова.', 
         en: 'Open the BlackTemple app. Tap the menu (three lines in the top right corner). Go to Settings → Advanced Settings. Find Speed Test URL. Select any other URL from the list. Restart your phone and try connecting again.' 
       }
-    }
+    },
+    getBlackProtocolMigrationStep(categorySlug)
   ]
 });
 
@@ -514,7 +611,7 @@ const getChangePlanGuide = (): Guide => ({
   ]
 });
 
-const getInternetProblemsGuide = (): Guide => ({
+const getInternetProblemsGuide = (categorySlug: string): Guide => ({
   slug: 'internet-problems',
   title: { ru: 'Работает только Wi-Fi / Не работает мобильная связь / Пропадает ночью', en: 'Works only on Wi-Fi / Mobile data doesn\'t work / Drops at night' },
   description: {
@@ -539,11 +636,12 @@ const getInternetProblemsGuide = (): Guide => ({
         ru: 'Если даже с включенной функцией интернет не появился, значит, в вашем конкретном регионе операторы применили экспериментальные методы блокировки, которые на данный момент обходят существующие решения.\n\n**Что делать?**\nК сожалению, в данный момент в вашем регионе наши стандартные методы могут не работать.\n\nМы не стоим на месте: наши инженеры обновляют протоколы каждый день. Мы уже разрабатываем новый метод специально для таких сложных зон и выпустим его в ближайшем обновлении.', 
         en: 'If the internet hasn\'t come back even with this function enabled, it means that operators in your specific region have applied experimental blocking methods that currently bypass existing solutions.\n\n**What to do?**\nUnfortunately, at the moment our standard methods may not work in your region.\n\nWe are not sitting still: our engineers update the protocols every day. We are already developing a new method specifically for such complex zones and will release it in the next update.' 
       }
-    }
+    },
+    getBlackProtocolMigrationStep(categorySlug)
   ]
 });
 
-const getKeyErrorGuide = (platform: string): Guide => {
+const getKeyErrorGuide = (platform: string, categorySlug: string): Guide => {
   const happStore = platform === 'Windows' 
     ? '[happ.ru.uptodown.com/windows/dw](https://happ.ru.uptodown.com/windows/dw)' 
     : platform === 'macOS' 
@@ -584,12 +682,13 @@ const getKeyErrorGuide = (platform: string): Guide => {
           url: '/linux/vless-protocol',
           text: { ru: 'Как сменить протокол на VLESS?', en: 'How to change protocol to VLESS?' }
         }
-      }
+      },
+      getBlackProtocolMigrationStep(categorySlug)
     ]
   };
 };
 
-const getConnectionErrorGuide = (platform: 'windows' | 'mobile' | 'other'): Guide => {
+const getConnectionErrorGuide = (platform: 'windows' | 'mobile' | 'other', categorySlug: string): Guide => {
   const steps: Step[] = [];
 
   if (platform === 'windows') {
@@ -626,6 +725,8 @@ const getConnectionErrorGuide = (platform: 'windows' | 'mobile' | 'other'): Guid
       en: 'Our app has a special tool to bypass such restrictions.\n\n1. Go to the BlackTemple app.\n2. Find and enable the White List function.\n3. Try to reconnect.\n\n**Important:** This function is an advanced bypass technology available only on the BlackRock plan (from 4.5 rubles/day). This function is not supported on the basic BlackEasy plan.'
     }
   });
+
+  steps.push(getBlackProtocolMigrationStep(categorySlug));
 
   return {
     slug: 'connection-error',
@@ -857,6 +958,65 @@ const getDownloadAppGuide = (platform: 'ios' | 'android'): Guide => {
   };
 };
 
+const getRussiaConnectionGuide = (categorySlug: string): Guide => {
+  const isStoreAvailable = ['android', 'ios', 'macos'].includes(categorySlug);
+  const storeName = categorySlug === 'android' ? 'Google Play' : (categorySlug === 'macos' ? 'Mac App Store' : 'App Store');
+  const storeText = isStoreAvailable 
+    ? `Вы можете безопасно обновить приложение через официальные магазины, просто вбив BlackTemple в вашем ${storeName}, или скачать напрямую.`
+    : 'Вы можете безопасно обновить приложение, скачав новую версию напрямую через официальные ресурсы (на нашем сайте или GitHub).';
+  
+  const storeTextEn = isStoreAvailable
+    ? `You can safely update the app via official stores simply by searching for BlackTemple in your ${storeName}, or download it directly.`
+    : 'You can safely update the app by downloading the new version directly via official resources (on our website or GitHub).';
+
+  return {
+    slug: 'connect-to-russia',
+    title: { ru: '🌍 Как подключиться к России, находясь за границей', en: '🌍 How to connect to Russia while abroad' },
+    description: {
+      ru: 'Если вы находитесь за пределами РФ, но вам нужен российский IP-адрес (например, для доступа к локальным сервисам, банкам или приложениям), выполните следующие шаги:',
+      en: 'If you are outside the Russian Federation but need a Russian IP address (e.g., to access local services, banks, or apps), follow these steps:'
+    },
+    steps: [
+      {
+        title: { ru: 'Шаг 1: Укажите ваше фактическое местоположение', en: 'Step 1: Specify your actual location' },
+        text: {
+          ru: 'Приложению нужно понимать, откуда идет трафик, чтобы правильно выстроить маршрут.\n\n1. В приложении BlackTemple нажмите на меню (3 полоски в углу) -> Настройки.\n2. Найдите пункт «Страна использования».\n3. Выберите «Вне РФ» (или выберите конкретную страну, в которой сейчас находитесь).',
+          en: 'The app needs to understand where the traffic is coming from to correctly build the route.\n\n1. In the BlackTemple app, tap the menu (3 lines in the corner) -> Settings.\n2. Find "Country of use".\n3. Select "Outside RF" (or select the specific country where you are currently located).'
+        }
+      },
+      {
+        title: { ru: 'Шаг 2: Выберите сервер России', en: 'Step 2: Select the Russian server' },
+        text: {
+          ru: '1. Вернитесь на главный экран приложения.\n2. Перейдите во вкладку «Сменить страну».\n3. Выберите в списке «Россия».',
+          en: '1. Return to the main screen of the app.\n2. Go to the "Change country" tab.\n3. Select "Russia" from the list.'
+        }
+      },
+      {
+        title: { ru: '🔧 Возможные проблемы: Выбрали Россию, но показывает другую страну?', en: '🔧 Possible issues: Selected Russia, but shows another country?' },
+        text: {
+          ru: `Если при подключении к России определяется другой регион (например, Италия) или нужные сайты не грузятся, проблема заключается в устаревшей версии приложения или использовании старого протокола (VLESS).\n\n**Как это исправить:**\n\n**1. Обновите приложение до последней версии**\nСтарые клиенты могут некорректно обрабатывать новые списки серверов. ${storeText}`,
+          en: `If a different region is detected (like Italy) when connecting to Russia, or the required sites do not load, the problem lies in an outdated version of the app or the use of an old protocol (VLESS).\n\n**How to fix this:**\n\n**1. Update the app to the latest version**\nOld clients may not properly process new server lists. ${storeTextEn}`
+        },
+        internalLink: {
+          url: `/${categorySlug}/install`,
+          text: { ru: 'Гайд по установке приложения', en: 'App installation guide' }
+        }
+      },
+      {
+        title: { ru: '2. Удалите старый ключ и перейдите на протокол Black', en: '2. Delete the old key and switch to the Black protocol' },
+        text: {
+          ru: 'У старых пользователей часто стоит VLESS протокол, и мы советуем это проверить. Чтобы сервер определялся безошибочно, вам нужен актуальный ключ с автоматическим поиском оптимального маршрута (Black).\n\n1. Откройте приложение BlackTemple, перейдите в раздел со списком ключей.\n2. Удалите старый ключ, сделав свайп влево по его названию.\n3. Смените протокол в личном кабинете и добавьте новый ключ.',
+          en: 'Older users often have the VLESS protocol, and we advise you to check this. For the server to correctly determine route, you need an up-to-date key with automatic search for the optimal route (Black).\n\n1. Open the BlackTemple app, go to the key list section.\n2. Delete the old key by swiping left on its name.\n3. Change the protocol in your dashboard and add the new key.'
+        },
+        internalLink: {
+          url: `/${categorySlug}/black-protocol`,
+          text: { ru: 'Инструкция по смене протокола на Black', en: 'Guide on changing protocol to Black' }
+        }
+      }
+    ]
+  };
+};
+
 export const knowledgeBase: Category[] = [
   {
     slug: 'windows',
@@ -894,6 +1054,9 @@ export const knowledgeBase: Category[] = [
         ]
       },
       getFindKeyGuide(),
+      getRussiaConnectionGuide('windows'),
+      getBlackProtocolGuide('windows'),
+      getVlessProtocolGuide(),
       getAddDeviceGuide(),
       getRemoveDeviceGuide(),
       getChangePlanGuide(),
@@ -901,10 +1064,10 @@ export const knowledgeBase: Category[] = [
       getBotProblemsGuide(),
       getDifferentBalanceGuide(),
       getTorrentBanGuide(),
-      getInternetProblemsGuide(),
-      getKeyErrorGuide('Windows'),
-      getConnectionErrorGuide('windows'),
-      getTelegramGuide('Windows'),
+      getInternetProblemsGuide('windows'),
+      getKeyErrorGuide('Windows', 'windows'),
+      getConnectionErrorGuide('windows', 'windows'),
+      getTelegramGuide('Windows', 'windows'),
       getGeminiGuide('Windows'),
       getSlowSitesGuide('Windows'),
       getRuSitesGuide()
@@ -937,6 +1100,9 @@ export const knowledgeBase: Category[] = [
         ]
       },
       getFindKeyGuide(),
+      getRussiaConnectionGuide('macos'),
+      getBlackProtocolGuide('macos'),
+      getVlessProtocolGuide(),
       getAddDeviceGuide(),
       getRemoveDeviceGuide(),
       getChangePlanGuide(),
@@ -944,10 +1110,10 @@ export const knowledgeBase: Category[] = [
       getBotProblemsGuide(),
       getDifferentBalanceGuide(),
       getTorrentBanGuide(),
-      getInternetProblemsGuide(),
-      getKeyErrorGuide('macOS'),
-      getConnectionErrorGuide('other'),
-      getTelegramGuide('macOS'),
+      getInternetProblemsGuide('macos'),
+      getKeyErrorGuide('macOS', 'macos'),
+      getConnectionErrorGuide('other', 'macos'),
+      getTelegramGuide('macOS', 'macos'),
       getGeminiGuide('macOS'),
       getSlowSitesGuide('macOS'),
       getRuSitesGuide()
@@ -980,6 +1146,9 @@ export const knowledgeBase: Category[] = [
         ]
       },
       getFindKeyGuide(),
+      getRussiaConnectionGuide('ios'),
+      getBlackProtocolGuide('ios'),
+      getVlessProtocolGuide(),
       getAddDeviceGuide(),
       getRemoveDeviceGuide(),
       getChangePlanGuide(),
@@ -987,16 +1156,16 @@ export const knowledgeBase: Category[] = [
       getBotProblemsGuide(),
       getDifferentBalanceGuide(),
       getTorrentBanGuide(),
-      getInternetProblemsGuide(),
-      getKeyErrorGuide('iOS'),
-      getConnectionErrorGuide('mobile'),
+      getInternetProblemsGuide('ios'),
+      getKeyErrorGuide('iOS', 'ios'),
+      getConnectionErrorGuide('mobile', 'ios'),
       getVpnPermissionErrorGuide('ios'),
-      getTelegramGuide('iOS'),
+      getTelegramGuide('iOS', 'ios'),
       getGeminiGuide('iOS'),
       getWhatsAppGuide(),
       getDownloadAppGuide('ios'),
       getTikTokIosGuide(),
-      getVpnDisconnectIosGuide(),
+      getVpnDisconnectIosGuide('ios'),
       getSlowSitesGuide('iOS'),
       getRuSitesGuide()
     ]
@@ -1028,6 +1197,9 @@ export const knowledgeBase: Category[] = [
         ]
       },
       getFindKeyGuide(),
+      getRussiaConnectionGuide('android'),
+      getBlackProtocolGuide('android'),
+      getVlessProtocolGuide(),
       getAddDeviceGuide(),
       getRemoveDeviceGuide(),
       getChangePlanGuide(),
@@ -1035,16 +1207,16 @@ export const knowledgeBase: Category[] = [
       getBotProblemsGuide(),
       getDifferentBalanceGuide(),
       getTorrentBanGuide(),
-      getInternetProblemsGuide(),
-      getKeyErrorGuide('Android'),
-      getConnectionErrorGuide('mobile'),
+      getInternetProblemsGuide('android'),
+      getKeyErrorGuide('Android', 'android'),
+      getConnectionErrorGuide('mobile', 'android'),
       getVpnPermissionErrorGuide('android'),
-      getTelegramGuide('Android'),
+      getTelegramGuide('Android', 'android'),
       getGeminiGuide('Android'),
       getWhatsAppGuide(),
       getDownloadAppGuide('android'),
       getTikTokAndroidGuide(),
-      getVpnDisconnectAndroidGuide(),
+      getVpnDisconnectAndroidGuide('android'),
       getSlowSitesGuide('Android'),
       getRuSitesGuide()
     ]
@@ -1074,33 +1246,7 @@ export const knowledgeBase: Category[] = [
           }
         ]
       },
-      {
-        slug: 'vless-protocol',
-        title: { ru: 'Как сменить протокол на VLESS', en: 'How to switch to VLESS protocol' },
-        description: { ru: 'Инструкция по переключению протокола устройства на VLESS.', en: 'Guide on switching your device protocol to VLESS.' },
-        steps: [
-          {
-            title: { ru: 'Войдите в личный кабинет', en: 'Log in to your dashboard' },
-            text: { ru: 'Откройте сайт [blacktemple.online](https://blacktemple.online) или Telegram-бота [@blacktemple_space_bot](https://t.me/blacktemple_space_bot) (в зависимости от того, где вы пополняли баланс).', en: 'Open the website [blacktemple.online](https://blacktemple.online) or the Telegram bot [@blacktemple_space_bot](https://t.me/blacktemple_space_bot) (depending on where you added funds).' }
-          },
-          {
-            title: { ru: 'Найдите раздел «Мои устройства»', en: 'Find "My Devices"' },
-            text: { ru: 'Пролистайте главную страницу вниз до списка ваших активных устройств.', en: 'Scroll down the main page to the list of your active devices.' }
-          },
-          {
-            title: { ru: 'Выберите устройство', en: 'Select a device' },
-            text: { ru: 'Нажмите на название нужного устройства (например, «Основной»).', en: 'Click on the name of the desired device (e.g., "Main").' }
-          },
-          {
-            title: { ru: 'Смените протокол', en: 'Change the protocol' },
-            text: { ru: 'В открывшемся меню найдите пункт «Протокол». Нажмите на текущий протокол и выберите из списка VLESS.', en: 'In the menu, find the "Protocol" setting. Click on your current protocol and select VLESS from the list.' }
-          },
-          {
-            title: { ru: 'Обновите ключ', en: 'Update the key' },
-            text: { ru: 'После смены протокола скопируйте обновленный ключ из поля KEY. Заново вставьте его в ваше VPN-приложение (например, в Happ), чтобы изменения вступили в силу.', en: 'After changing the protocol, copy the updated key from the KEY field. Paste it into your VPN application (e.g., Happ) for the changes to take effect.' }
-          }
-        ]
-      },
+      getVlessProtocolGuide(),
       getAddDeviceGuide(),
       getRemoveDeviceGuide(),
       getChangePlanGuide(),
