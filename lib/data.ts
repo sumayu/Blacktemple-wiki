@@ -1,4 +1,4 @@
-import { Monitor, Apple, Smartphone, Terminal } from 'lucide-react';
+import { Monitor, Apple, Smartphone, Terminal, Router, AlertTriangle } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 export type LocalizedString = {
@@ -16,6 +16,10 @@ export type Step = {
     url: string;
     text: LocalizedString;
   };
+  internalLinks?: {
+    url: string;
+    text: LocalizedString;
+  }[];
 };
 
 export type Guide = {
@@ -680,21 +684,16 @@ const getInternetProblemsGuide = (categorySlug: string): Guide => ({
         ru: 'В нашем приложении есть специальный инструмент для обхода таких ограничений.\n\n1. Зайдите в Настройки приложения BlackTemple.\n2. Найдите и включите функцию White List.\n3. Попробуйте переподключиться.\n\n**Важно:** Данная функция — это продвинутая технология обхода, которая доступна только на тарифе BlackRock (от 4,5 руб/сутки). На базовом тарифе BlackEasy эта функция не поддерживается.\n\n**Если кнопки функции White List нет:**\nЭто означает, что у вас либо устаревший клиент (версия ниже 1.3.2), либо используется устаревший протокол VLESS. Вам необходимо обновить приложение и сменить протокол на Black.', 
         en: 'Our app has a special tool to bypass such restrictions.\n\n1. Go to the BlackTemple app Settings.\n2. Find and enable the White List function.\n3. Try to reconnect.\n\n**Important:** This function is an advanced bypass technology available only on the BlackRock plan (from 4.5 rubles/day). This function is not supported on the basic BlackEasy plan.\n\n**If the White List button is missing:**\nThis means that you either have an outdated client (version below 1.3.2) or use the outdated VLESS protocol. You need to update the app and switch the protocol to Black.' 
       },
-      internalLink: {
-        url: `/${categorySlug}/install`,
-        text: { ru: 'Скачать новую версию', en: 'Download new version' }
-      }
-    },
-    {
-      title: { ru: 'Обновить протокол до Black', en: 'Update protocol to Black' },
-      text: {
-        ru: 'Если вы обновили приложение, но кнопки White List все еще нет — смените установленный старый VLESS протокол на свежий Black.',
-        en: 'If you have updated the app but the White List button is still missing, change the installed old VLESS protocol to the fresh Black.'
-      },
-      internalLink: {
-        url: `/${categorySlug}/black-protocol`,
-        text: { ru: 'Инструкция по обновлению протокола на Black', en: 'Guide on updating protocol to Black' }
-      }
+      internalLinks: [
+        {
+          url: `/${categorySlug}/install`,
+          text: { ru: 'Скачать новую версию приложения', en: 'Download new app version' }
+        },
+        {
+          url: `/${categorySlug}/black-protocol`,
+          text: { ru: 'Инструкция по обновлению протокола на Black', en: 'Guide on updating protocol to Black' }
+        }
+      ]
     },
     {
       title: { ru: 'Шаг 2: Если White List не помог', en: 'Step 2: If White List didn\'t help' },
@@ -917,13 +916,19 @@ const getMissedPaymentGuide = (categorySlug: string): Guide => ({
     {
       title: { ru: 'Проверьте, какой аккаунт вы пополнили', en: 'Check which account you topped up' },
       text: {
-        ru: 'Это самая частая причина, по которой пользователи не видят свои деньги. У BlackTemple есть две независимые системы. Представьте, что это два разных кошелька, которые по умолчанию не связаны между собой:\n\n**👛 Кошелек А: В Telegram-боте**\nОткройте бота [@blacktemple_space_bot](https://t.me/blacktemple_space_bot), нажмите кнопку «Баланс» и проверьте, поступили ли средства. Если вы платили через интерфейс бота, деньги будут здесь.\n\n_Если вы пополнили баланс на сайте, а зашли в бота — денег в боте не будет, пока вы не объедините аккаунты._\n\n**🌐 Кошелек Б: На сайте blacktemple.online**\nЗайдите на сайт через браузер и посмотрите на баланс в личном кабинете.\n\nЭто отдельный личный кабинет. Вы могли зарегистрироваться на сайте под одной почтой, а оплату провести в боте — в этом случае система создаст два разных профиля, и баланс на них будет разным. Пожалуйста, проверьте обе площадки на наличие пополнения.\n\n**Задержка отображения в приложении**\nЕсли вы видите деньги в боте или на сайте, но они не отображаются в самом приложении BlackTemple на вашем устройстве — это визуальная задержка, которая не влияет на работу VPN.\n\nЕсли мы нашли нужную нам площадку — используем ключ от нее. Инструкция по поиску: [Как найти ваш ключ (KEY)](find-key)',
-        en: 'This is the most common reason users don\'t see their money. BlackTemple has two independent systems. Imagine them as two different wallets that are not linked by default:\n\n**👛 Wallet A: In Telegram bot**\nOpen the bot [@blacktemple_space_bot](https://t.me/blacktemple_space_bot), tap the "Balance" button and check if the funds arrived. If you paid via the bot interface, the money will be here.\n\n_If you topped up on the website but checked in the bot — the money won\'t be in the bot until you link the accounts._\n\n**🌐 Wallet B: On blacktemple.online**\nGo to the website via browser and check your dashboard balance.\n\nThis is a separate dashboard. You could have registered on the site with one email, but paid in the bot — in this case, the system creates two different profiles, and their balances will differ. Please check both platforms.\n\n**Display delay in the app**\nIf you see money in the bot or on the website, but it does not appear in the BlackTemple app on your device — this is a visual delay that does not affect the VPN operation.\n\nIf you found the right platform — use its key. Guide on finding it: [How to find your key (KEY)](find-key)'
+        ru: 'Это самая частая причина, по которой пользователи не видят свои деньги. У BlackTemple есть две независимые системы. Представьте, что это два разных кошелька, которые по умолчанию не связаны между собой:\n\n**👛 Кошелек А: В Telegram-боте**\nОткройте бота [@blacktemple_space_bot](https://t.me/blacktemple_space_bot), нажмите кнопку «Баланс» и проверьте, поступили ли средства. Если вы платили через интерфейс бота, деньги будут здесь.\n\n_Если вы пополнили баланс на сайте, а зашли в бота — денег в боте не будет, пока вы не объедините аккаунты._\n\n**🌐 Кошелек Б: На сайте blacktemple.online**\nЗайдите на сайт через браузер и посмотрите на баланс в личном кабинете.\n\nЭто отдельный личный кабинет. Вы могли зарегистрироваться на сайте под одной почтой, а оплату провести в боте — в этом случае система создаст два разных профиля.\n\n**Задержка отображения в приложении**\nЕсли средства есть в боте или на сайте, но отсутствуют в приложении — это всего лишь визуальная задержка. Чтобы узнать, как сверить ID и обновить баланс, перейдите в статью "Разный баланс в приложении и личном кабинете".\n\nЕсли вы нашли пополненный аккаунт, вы можете найти свой VLESS ключ с помощью руководства ниже.',
+        en: 'This is the most common reason users don\'t see their money. BlackTemple has two independent systems. Imagine them as two different wallets that are not linked by default:\n\n**👛 Wallet A: In Telegram bot**\nOpen the bot [@blacktemple_space_bot](https://t.me/blacktemple_space_bot), tap the "Balance" button and check if the funds arrived. If you paid via the bot interface, the money will be here.\n\n_If you topped up on the website but checked in the bot — the money won\'t be in the bot until you link the accounts._\n\n**🌐 Wallet B: On blacktemple.online**\nGo to the website via browser and check your dashboard balance.\n\nThis is a separate dashboard. You could have registered on the site with one email, but paid in the bot — in this case, the system creates two different profiles.\n\n**Display delay in the app**\nIf the funds are in the bot or website but not in the app — it is just a visual delay. To check your ID and refresh balance, read "Different balance in the app and dashboard".\n\nIf you found the topped-up account, you can find your VLESS key using the guide below.'
       },
-      internalLink: {
-        url: `/${categorySlug}/app-vs-dashboard-balance`,
-        text: { ru: '⚖️ Разный баланс в приложении и личном кабинете', en: '⚖️ Different balance in the app and dashboard' }
-      }
+      internalLinks: [
+        {
+          url: `/${categorySlug}/app-vs-dashboard-balance`,
+          text: { ru: '⚖️ Разный баланс в приложении и личном кабинете', en: '⚖️ Different balance in the app and dashboard' }
+        },
+        {
+          url: `/${categorySlug}/find-key`,
+          text: { ru: '🔑 Как найти ваш ключ (KEY)', en: '🔑 How to find your key (KEY)' }
+        }
+      ]
     },
     {
       title: { ru: 'Подождите 1 час', en: 'Wait 1 hour' },
@@ -1333,6 +1338,12 @@ export const knowledgeBase: Category[] = [
       getAppVsDashboardBalanceGuide('linux'),
       getTorrentBanGuide()
     ]
+  },
+  {
+    slug: 'podkop',
+    name: 'Актуальные баги: Восстановление Telegram',
+    icon: AlertTriangle,
+    guides: []
   }
 ];
 

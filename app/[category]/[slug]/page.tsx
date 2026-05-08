@@ -115,6 +115,20 @@ export default function GuidePage({ params }: { params: Promise<{ category: stri
                     </Link>
                   </div>
                 )}
+
+                {step.internalLinks && (
+                  <div className="mt-6 flex flex-col gap-3">
+                    {step.internalLinks.map((link, i) => (
+                      <Link 
+                        key={i}
+                        href={link.url}
+                        className="inline-flex items-center text-sm font-medium text-white hover:text-zinc-300 underline underline-offset-4 transition-colors w-fit"
+                      >
+                        {link.text[lang]}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>

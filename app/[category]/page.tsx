@@ -5,6 +5,7 @@ import { getCategoryBySlug } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { useLanguage } from '@/components/LanguageProvider';
+import PodkopInstruction from '@/components/podkop/PodkopInstruction';
 
 export default function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category: categorySlug } = use(params);
@@ -12,6 +13,10 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
   const { lang, t } = useLanguage();
   
   if (!category) return notFound();
+
+  if (categorySlug === 'router') {
+    return <PodkopInstruction />;
+  }
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
